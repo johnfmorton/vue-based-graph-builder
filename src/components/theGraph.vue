@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         The message is: {{ msg }}
-        <p><button @click='() => reduceValue("updatedBeginValue", 0)'> - </button>Beginning value: {{ updatedBeginValue}} <button @click='() => incrementValue("updatedBeginValue", endValue)'> + </button></p>
+        <p><button @click='() => reduceValue("updatedBeginValue", 0)'> - </button> Beginning value: {{ updatedBeginValue}}% <button @click='() => incrementValue("updatedBeginValue", 100)'> + </button></p>
 
-        <p><button @click='() => reduceValue("endValue", 0)'> - </button> End value: {{ endValue }} <button @click='() => incrementValue("endValue", beginValue)'> + </button></p>
+        <p><button @click='() => reduceValue("updatedEndValue", 0)'> - </button> End value: {{ updatedEndValue }}% <button @click='() => incrementValue("updatedEndValue", 100)'> + </button></p>
 
         <p>My animating value: {{ myanimatingvalue }} </p>
         <div class="barFull">
-            <div ref="bar" class="barPartial" :style="{width:startingPoint+'%'}"></div>
+            <div ref="bar" class="barPartial" :style="{width:myValue.mynumber+'%'}"></div>
         </div>
         <button @click="startAnimation">Animate from beginning % to end %</button>
     </div>
@@ -15,6 +15,7 @@
 
 <script>
     import { TimelineLite } from 'gsap'
+    import { Power3 } from 'gsap'
 
 
     export default {
@@ -31,63 +32,41 @@
         data: function () {
             return {
                 updatedBeginValue: this.beginValue,
+                updatedEndValue: 90,
                 myValue: {
                     mynumber: 6
                 },
-                timeline: null,
                 timeline2: null
             }
         },
         methods: {
 
             startAnimation() {
-                console.log('animation begins')
-                const { bar } = this.$refs
-
-                TweenLite.set([bar], {width: this.beginValue})
-                // TweenLite.set([this.myValue.mynumber], {width: this.beginValue})
-                this.myValue.mynumber = this.beginValue;
-                this.timeline.clear();
+                // const { bar } = this.$refs
+                this.myValue.mynumber = this.updatedBeginValue;
                 this.timeline2.clear();
-
-                this.timeline.to(bar, 5, {
-                    // delay: 1,
-                    width: this.endValue +'%',
-                    ease: Power3.easeOut
-                })
-
                 this.timeline2.to(this.myValue, 5, {
-                    // delay: 1,
-                    mynumber: this.endValue,
+                    delay: 1,
+                    mynumber: this.updatedEndValue,
                     ease: Power3.easeOut
                 })
 
             },
             reduceValue(changingValue, valueLimit) {
-                console.log(changingValue);
-                this['changingValue']--;
-                // if(changingValue < valueLimit) {
-                //     console.log('reduceValue')
-                //     changingValue--;
-                // }
-
+                if(this[changingValue] > valueLimit) {
+                this[changingValue]--;
+                }
             },
             incrementValue(changingValue, valueLimit) {
-
-                if(changingValue > valueLimit) {
-                    console.log('incrementValue')
-                    this['changingValue']++;
+                if(this[changingValue] < valueLimit) {
+                    this[changingValue]++;
                 }
             }
 
         },
         computed: {
-            startingPoint() {
-                return this.beginValue;
-            },
-
             myanimatingvalue() {
-                return Math.ceil(this.myValue.mynumber);
+                return Math.ceil(this.myValue.mynumber) + '%';
             }
         },
 
@@ -101,6 +80,22 @@
 </script>
 
 <style scoped>
+
+    button {
+        background-color: lightslategray;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        margin: 0 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        transition: background-color 0.25s;
+    }
+    button:hover {
+        background-color: #6a829a;
+    }
     .container {
         width: 50vw;
         margin-right: auto;
