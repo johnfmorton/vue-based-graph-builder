@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Graph1 from './views/Graph1'
+// import Graph from './views/Graphs'
 
 Vue.use(Router)
 
@@ -21,10 +21,15 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
       {
-        path: '/graph1',
-          name: 'graph1',
-          component: Graph1
-
+        path: '/graph',
+          name: 'graph',
+          // component: Graph
+          component: () => import(/* webpackChunkName: "graph" */ './views/Graphs.vue')
+      },
+      {
+        path: '/settings',
+          name: 'settings',
+          component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
       }
   ]
 })

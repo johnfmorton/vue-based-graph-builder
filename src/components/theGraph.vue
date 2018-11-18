@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        The message is: {{ msg }}
+        <h2>{{ msg }}</h2>
         <p><button @click='() => reduceValue("updatedBeginValue", 0)'> - </button> Beginning value: {{ updatedBeginValue}}% <button @click='() => incrementValue("updatedBeginValue", 100)'> + </button></p>
 
         <p><button @click='() => reduceValue("updatedEndValue", 0)'> - </button> End value: {{ updatedEndValue }}% <button @click='() => incrementValue("updatedEndValue", 100)'> + </button></p>
 
-        <p>My animating value: {{ myanimatingvalue }} </p>
+        <!--<p>My animating value: {{ myanimatingvalue }} </p>-->
         <div class="barFull">
             <div ref="bar" class="barPartial" :style="{width:myValue.mynumber+'%'}"></div>
         </div>
@@ -32,7 +32,7 @@
         data: function () {
             return {
                 updatedBeginValue: this.beginValue,
-                updatedEndValue: 90,
+                updatedEndValue: this.endValue,
                 myValue: {
                     mynumber: 6
                 },
@@ -80,6 +80,15 @@
 </script>
 
 <style scoped>
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+    p {
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
 
     button {
         background-color: lightslategray;
@@ -97,11 +106,14 @@
         background-color: #6a829a;
     }
     .container {
+
         width: 50vw;
         margin-right: auto;
         margin-left: auto;
         padding: 1rem;
-        border: 1px solid green;
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     .barFull {
