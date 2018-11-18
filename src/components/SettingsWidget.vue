@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import AnimatedGraph from '@/components/theGraph.vue'
+    import AnimatedGraph from '@/components/SingleBarGraphSetting.vue'
     export default {
         name: "SettingsWidget",
         components: {
