@@ -8,7 +8,7 @@
 
 <script>
     // @ is an alias to /src
-    import AnimatedGraph from '@/components/theGraph.vue'
+    import AnimatedGraph from '@/components/SingleBarGraphDisplay.vue'
 
     export default {
         name: 'graphviewer',
