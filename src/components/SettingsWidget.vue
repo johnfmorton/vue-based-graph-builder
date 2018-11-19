@@ -7,9 +7,8 @@
             <button class="buttonSetter" @click="decrementGlobalTotal">-</button>
             {{ globalTotal }}
             <button class="buttonSetter" @click="incrementGlobalTotal">+</button>
-
-
-            <AnimatedGraph v-for="(graph, index) in globalTotal" :msg="graphName(graph)" :beginValue=0 :endValue=100 />
+            <p></p>
+            <AnimatedGraph v-for="(graph, index) in globalTotal" :msg="graphName(graph)" :beginValue=0 :endValue=100 :myIndex="index"/>
 
         </div>
 
@@ -36,12 +35,6 @@
             globalTotal() {
                 return this.$store.state.bars
             },
-            showLocalStatus() {
-                return `The local total is ${this.total}.`
-            }
-            // actions() {
-            //     return this.$store.getters.actions;
-            // }
         },
         methods: {
             graphName(thegraphnumber) {
