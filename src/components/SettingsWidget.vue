@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>How many widgets should there be?</h2>
+        <h2>Configure the bars in your bar graph.</h2>
         <p :data-details="globalTotal">{{ showStatus }}</p>
         <div>
 

@@ -13,9 +13,9 @@
             <button @click='() => incrementEnding()'> +</button>
         </p>
 
-        <!--<p>My animating value: {{ myanimatingvalue }} </p>-->
+        <p>My animating value: {{ myanimatingvalue }} </p>
         <div class="barFull">
-            <div ref="bar" class="barPartial" :style="{width:myValue.mynumber+'%'}"></div>
+            <div ref="bar" class="barPartial" :style="{width:myValue.thePercentage+'%'}"></div>
         </div>
         <button @click="startAnimation">Animate from beginning % to end %</button>
     </div>
@@ -33,34 +33,24 @@
         props: {
             msg: String,
             myIndex: {type: Number, required: true},
-            beginValue: {
-                type: Number,
-                required: true
-            },
-            endValue: {
-                type: Number,
-                required: true
-            }
         },
 
         data: function () {
             return {
-                updatedBeginValue: this.beginValue,
-                updatedEndValue: this.endValue,
                 myValue: {
-                    mynumber: 6
+                    thePercentage: 0
                 },
-                timeline2: null
+                tl: null
             }
         },
         methods: {
             startAnimation() {
                 // const { bar } = this.$refs
-                this.myValue.mynumber = this.updatedBeginValue;
-                this.timeline2.clear();
-                this.timeline2.to(this.myValue, 5, {
+                this.myValue.thePercentage = this.$store.state.barSettingsContainer[this.myIndex].startValue;
+                this.tl.clear();
+                this.tl.to(this.myValue, 5, {
                     delay: 1,
-                    mynumber: this.updatedEndValue,
+                    thePercentage: this.$store.state.barSettingsContainer[this.myIndex].endValue,
                     ease: Power3.easeOut
                 })
 
@@ -94,13 +84,12 @@
         },
         computed: {
             myanimatingvalue() {
-                return Math.ceil(this.myValue.mynumber) + '%';
+                return Math.ceil(this.myValue.thePercentage) + '%';
             }
         },
 
         mounted() {
-            this.timeline = new TimelineLite()
-            this.timeline2 = new TimelineLite()
+            this.tl = new TimelineLite()
             this.startAnimation()
         }
 
