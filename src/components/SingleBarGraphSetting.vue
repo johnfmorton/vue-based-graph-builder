@@ -137,8 +137,8 @@
 
     .barFull {
         position: relative;
-        background: rgba(10, 10, 255, 0.1);
-        outline: rgba(10, 10, 255, 0.2) 1px solid;
+        background: rgba(10, 10, 10, 0.1);
+        outline: rgba(10, 10, 10, 0.15) 1px solid;
         height: 30px;
         /*padding-top: 5px;*/
         margin-bottom: 1rem;

@@ -1,62 +1,49 @@
 <template>
-    <div class="container">
         <div class="barFull">
-            <div ref="bar" class="barPartial" :style="{width:myValue.mynumber+'%'}">{{myanimatingvalue}}</div>
+            <div ref="bar" class="barPartial" :style="{width:myValue.thePercentage+'%'}"><span class="readout">{{ myanimatingvalue }}</span></div>
         </div>
-    </div>
 </template>
 
 <script>
-    import { TimelineLite } from 'gsap'
-    import { Power3 } from 'gsap'
-
+    import {TimelineLite} from 'gsap'
+    import {Power3} from 'gsap'
 
     export default {
-        name: "Bar",
+        name: "theGraph",
         props: {
             msg: String,
-            beginValue: Number,
-            endValue: {
-                type: Number,
-                required: true
-            }
+            myIndex: {type: Number, required: true},
         },
 
         data: function () {
             return {
-                updatedBeginValue: this.beginValue,
-                updatedEndValue: this.endValue,
                 myValue: {
-                    mynumber: 6
+                    thePercentage: 0
                 },
-                timeline2: null
+                tl: null
             }
         },
         methods: {
-
             startAnimation() {
                 // const { bar } = this.$refs
-                this.myValue.mynumber = this.updatedBeginValue;
-                this.timeline2.clear();
-                this.timeline2.to(this.myValue, 5, {
+                this.myValue.thePercentage = this.$store.state.barSettingsContainer[this.myIndex].startValue;
+                this.tl.clear();
+                this.tl.to(this.myValue, 5, {
                     delay: 1,
-                    mynumber: this.updatedEndValue,
+                    thePercentage: this.$store.state.barSettingsContainer[this.myIndex].endValue,
                     ease: Power3.easeOut
                 })
 
-            },
-
-
+            }
         },
         computed: {
             myanimatingvalue() {
-                return Math.ceil(this.myValue.mynumber) + '%';
+                return Math.ceil(this.myValue.thePercentage) + '%';
             }
         },
 
         mounted() {
-            this.timeline = new TimelineLite()
-            this.timeline2 = new TimelineLite()
+            this.tl = new TimelineLite()
             this.startAnimation()
         }
 
@@ -68,11 +55,11 @@
         margin-top: 0;
         margin-bottom: 0.5rem;
     }
+
     p {
         margin-top: 0.75rem;
         margin-bottom: 0.75rem;
     }
-
 
     button {
         background-color: lightslategray;
@@ -86,27 +73,28 @@
         font-size: 13px;
         transition: background-color 0.25s;
     }
+
     button:hover {
         background-color: #6a829a;
     }
-    .container {
 
-        width: 50vw;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 1rem;
-        border: 1px solid rgba(0,0,0,0.15);
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-    }
+
 
     .barFull {
         position: relative;
-        background: rgba(10, 10, 255, 0.1);
-        outline: rgba(10, 10, 255, 0.2) 1px solid;
+        /*background: rgba(10, 10, 255, 0.1);*/
+        /*outline: rgba(10, 10, 255, 0.2) 1px solid;*/
         height: 30px;
-        /*padding-top: 5px;*/
-        margin-bottom: 1rem;
+        margin: 1px 0;
+        /*margin-bottom: 1rem;*/
+        text-align: right;
+        color: white;
+
+    }
+    .readout {
+
+        padding: 0 0.25rem;
+        font-size: 0.5rem;
     }
 
     .barPartial {
@@ -117,7 +105,10 @@
         background-color: firebrick;
         height: 20px;
         width: 0;
-        color: white;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
     }
 
 </style>
