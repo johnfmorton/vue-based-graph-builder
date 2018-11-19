@@ -1,3 +1,5 @@
 module.exports = {
-  baseUrl: '/<REPO>/'
+    baseUrl: process.env.NODE_ENV === 'production'
+        ? '/vue-based-graph-builder/'
+        : '/'
 }
