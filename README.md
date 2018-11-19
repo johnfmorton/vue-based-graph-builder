@@ -1,4 +1,6 @@
-# animated-graphs
+# Vue Animated Bar Graph Builder
+
+This isn't a project for anyone to use for a real purpose. It's just something I am building to explore Vue development with. It stores the state using Vuex. It integrates Greensock Animation Platform in a basic way. 
 
 ## Project setup
 ```
